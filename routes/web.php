@@ -25,6 +25,5 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 Route::resource('tenants', TenantController::class)
-    ->only(['index', 'store'])
-    ->middleware(['auth', 'verified']);
+    ->middleware(['auth', 'verified'])->names('tenants');
 require __DIR__.'/auth.php';

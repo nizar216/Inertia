@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tenant;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
+
 class TenantController extends Controller
 {
     /**
@@ -12,8 +14,15 @@ class TenantController extends Controller
      */
     public function index(): Response
     {
-            return Inertia::render('Tenants/Index', [
-            //
+        $tenants = Tenant::with(['domains' => function ($query) {
+            $query->orderBy('created_at')->first();
+        }])->get()->map(function ($tenant) {
+            $tenant->domain = $tenant->domains()->first();
+            return $tenant;
+        });
+
+        return Inertia::render('Tenants/Index', [
+            'tenants' => $tenants
         ]);
     }
 
@@ -22,7 +31,7 @@ class TenantController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Tenants/Create');
     }
 
     /**
@@ -30,7 +39,17 @@ class TenantController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+        if ($request->hasFile('logo')) {
+            $path = $request->file('logo')->store('logos', 'public');
+            $validated['logo'] = $path;
+        }
+        $tenant = Tenant::create(['id' => $validated['name'], 'logo' => $validated['logo']]);
+        $tenant->domains()->create(['domain' => $request->name . '.localhost']);
+        return redirect()->route('tenants.index');
     }
 
     /**
