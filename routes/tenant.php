@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Http\Controllers\Tenant\AuthController;
 use App\Http\Controllers\Tenant\DashboardController;
+use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
 use Illuminate\Support\Facades\Route;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
 use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
@@ -28,12 +29,12 @@ Route::middleware([
         ->name('tenant.login');
 
     Route::post('login', [AuthController::class, 'store'])
-        ->middleware('guest')
+        ->middleware('guest',HandlePrecognitiveRequests::class)
         ->name('tenant.store');
 
     Route::post('/logout', [AuthController::class, 'destroy'])
         ->middleware('auth')
-        ->name('logout');
+        ->name('tenant.logout');
 });
 
 Route::middleware([

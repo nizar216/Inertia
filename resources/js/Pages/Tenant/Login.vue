@@ -5,7 +5,7 @@ import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
-import { Head, Link, useForm } from '@inertiajs/vue3';
+import { useForm } from 'laravel-precognition-vue-inertia';
 import {ref} from "vue";
 
 defineProps({
@@ -18,21 +18,15 @@ defineProps({
     tenant: Object
 });
 const loginErrors = []
-const form = useForm({
+const form = useForm('post', route('tenant.store'), {
     email: '',
     password: '',
 });
 
-const submit = () => {
-    form.post(route('tenant.store'), {
-        onFinish: () => form.reset('password'),
-        onError:(error)=>{
-            loginErrors.value = error
-            console.log(loginErrors.value );
-        }
-    });
-};
-
+const submit = () => form.submit({
+    preserveScroll: true,
+    onSuccess: () => form.reset(),
+});
 const passwordVisible = ref(false);
 const togglePasswordVisibility = () => {
     passwordVisible.value = !passwordVisible.value;
@@ -51,18 +45,19 @@ const togglePasswordVisibility = () => {
                     <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
                         <form class="space-y-4 md:space-y-6" @submit.prevent="submit">
                             <div>
-                                <label for="email" class="block mb-2 text-sm font-semibold dark:text-white">Your
-                                    email</label>
-                                <input type="email" name="email" id="email"
-                                       v-model="form.email"
+                                <label for="email" class="block mb-2 text-base font-semibold dark:text-white">E-Mail-Adresse</label>
+                                <input  id="email"
+                                        type="email"
+                                        v-model="form.email"
+                                        @change="form.validate('email')"
                                        class="bg-gray-200 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                        required="">
-                                <span v-if="loginErrors?.value?.email">{{loginErrors?.value?.email}}</span>
+                                <p class="mt-2 font-medium text-sm text-red-600 dark:text-red-500" v-if="form.invalid('email')">{{ form.errors.email }}</p>
                             </div>
                             <div>
-                                <label for="password" class="block mb-2 text-sm font-semibold dark:text-white">Password</label>
+                                <label for="password" class="block mb-2 text-base font-semibold dark:text-white">Passwort</label>
                                 <div class="relative">
-                                    <input :type="passwordVisible ? 'text' : 'password'" name="password" id="password" v-model="form.password"
+                                    <input :type="passwordVisible ? 'text' : 'password'" id="password" v-model="form.password" @change="form.validate('password')"
                                            class="bg-gray-200 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                            autocomplete="current-password" required>
                                     <button type="button" @click="togglePasswordVisibility"
@@ -70,12 +65,12 @@ const togglePasswordVisibility = () => {
                                         <i :class="passwordVisible ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
                                     </button>
                                 </div>
+                                <p class="mt-2 font-medium text-sm text-red-600 dark:text-red-500" v-if="form.invalid('password')">{{ form.errors.password }}</p>
                             </div>
                             <div class="flex flex-col items-end">
 
                                 <a href="#"
-                                   class="text-sm font-semibold underline">Forgot
-                                    password?</a>
+                                   class="text-sm font-semibold underline">Passwort vergessen?</a>
                             </div>
                             <button type="submit"
                                     class="w-full h-12 text-white bg-sky-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:focus:ring-primary-800">

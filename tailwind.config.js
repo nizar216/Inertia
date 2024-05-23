@@ -20,6 +20,7 @@ export default {
             },
             fontFamily: {
                 'body': [
+                    'Palanquin',
                     'Inter',
                     'ui-sans-serif',
                     'system-ui',
@@ -37,6 +38,7 @@ export default {
                     'Noto Color Emoji'
                 ],
                 'sans': [
+                    'Palanquin',
                     'Inter',
                     'ui-sans-serif',
                     'system-ui',
