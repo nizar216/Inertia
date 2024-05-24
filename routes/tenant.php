@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 use App\Http\Controllers\Tenant\AuthController;
 use App\Http\Controllers\Tenant\DashboardController;
+use App\Http\Middleware\EnsureTenantIsAuthenticated;
+use App\Http\Middleware\TenantGuestMiddleware;
 use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
 use Illuminate\Support\Facades\Route;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
@@ -25,11 +27,11 @@ Route::middleware([
     InitializeTenancyByDomain::class,
     PreventAccessFromCentralDomains::class])->prefix('tenant')->group(function () {
     Route::get('/login', [AuthController::class, 'create'])
-        ->middleware('guest')
+        ->middleware(TenantGuestMiddleware::class)
         ->name('tenant.login');
 
     Route::post('login', [AuthController::class, 'store'])
-        ->middleware('guest',HandlePrecognitiveRequests::class)
+        ->middleware(HandlePrecognitiveRequests::class)
         ->name('tenant.store');
 
     Route::post('/logout', [AuthController::class, 'destroy'])
@@ -39,7 +41,7 @@ Route::middleware([
 
 Route::middleware([
     'web',
-    'tenant.auth',
+    EnsureTenantIsAuthenticated::class,
     InitializeTenancyByDomain::class,
     PreventAccessFromCentralDomains::class,
 ])->prefix('tenant')->group(function () {

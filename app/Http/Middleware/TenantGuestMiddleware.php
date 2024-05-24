@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class EnsureTenantIsAuthenticated
+class TenantGuestMiddleware
 {
     /**
      * Handle an incoming request.
@@ -16,8 +16,8 @@ class EnsureTenantIsAuthenticated
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!Auth::check()) {
-            return redirect()->route('tenant.login');
+        if (Auth::check()) {
+            return redirect(route('clients.dashboard'));
         }
 
         return $next($request);

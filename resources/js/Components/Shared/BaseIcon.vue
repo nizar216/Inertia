@@ -11,7 +11,7 @@
             lang="en"
         >{{ iconName }} icon</title>
         <g :fill="iconColor">
-            <slot />
+            <slot :color="iconColor" />
         </g>
     </svg>
 </template>
@@ -35,7 +35,7 @@ export default {
             type: String,
             default: 'currentColor'
         }
-    }
+    },
 }
 </script>
 <style scoped>

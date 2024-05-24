@@ -34,6 +34,15 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
             ],
+            'tenant' => function () {
+                if (tenant()) {
+                    $tenant = tenant();
+                    $tenant->logo = url(\Storage::url($tenant->logo));
+                    return $tenant;
+                } else {
+                    return null;
+                }
+            },
         ];
     }
 }
