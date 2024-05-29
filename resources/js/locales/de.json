@@ -1,5 +1,31 @@
 {
     "main": {
         "hello": "Willkommen,"
+    },
+    "loginPage": {
+        "passwordResetPage": {
+            "emailSentSuccess": "E-Mail erfolgreich versendet!",
+            "emailSentMessage": "Wir haben Ihnen eine E-Mail an {email} gesendet. Bitte schauen Sie in Ihr E-Mail-Postfach und folgen Sie den Anweisungen, um Ihr ein neues Passwort zu vergeben. Sie erhalten per E-Mail Anweisungen zum Anlegen eines neuen Passworts.",
+            "emailNotReceived": "Sie haben die E-Mail nicht erhalten?",
+            "resendEmail": "Noch mal senden",
+            "changeEmailAddress": "E-Mail-Adresse ändern",
+            "forgotPasswordPrompt": "Bitte geben Sie die zu Ihrem Account gehörende E-Mail-Adresse ein, um Ihr aktuelles Passwort zurückzusetzen.",
+            "forgotPasswordPromptBold": "Sie erhalten per E-Mail Anweisungen zum Anlegen eines neuen Passworts.",
+            "forgotPasswordLink": "Passwort zurücksetzen",
+            "forgotPassword": "Passwort vergessen?",
+            "forgotPasswordTitle": "Sie haben Ihr Passwort vergessen?"
+        }
+    },
+    "buttons": {
+        "login": "Einloggen",
+        "cancel": "Abbrechen",
+        "resetPassword": "Passwort zurücksetzen"
+    },
+    "labels": {
+        "email": "E-Mail-Adresse",
+        "password": "Passwort"
+    },
+    "placeholders": {
+        "email": "E-Mail-Adresse eingeben"
     }
 }

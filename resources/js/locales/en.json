@@ -1,5 +1,31 @@
 {
     "main": {
         "hello": "Welcome,"
+    },
+    "loginPage": {
+        "passwordResetPage": {
+            "emailSentSuccess": "Email successfully sent!",
+            "emailSentMessage": "We have sent you an email to {email}. Please check your email inbox and follow the instructions to reset your password. You will receive instructions via email to create a new password.",
+            "emailNotReceived": "Did not receive the email?",
+            "resendEmail": "Resend Email",
+            "changeEmailAddress": "Change Email Address",
+            "forgotPasswordPrompt": "Please enter the email address associated with your account to reset your current password. ",
+            "forgotPasswordPromptBold":"You will receive instructions via email to create a new password.",
+            "forgotPasswordLink": "Reset Password",
+            "forgotPassword": "Forgot Password?",
+            "forgotPasswordTitle": "Have you forgotten your password?"
+        }
+    },
+    "buttons": {
+        "login": "Log In",
+        "cancel": "Cancel",
+        "resetPassword": "reset Password"
+    },
+    "labels": {
+        "email": "Email Address",
+        "password": "Password"
+    },
+    "placeholders": {
+        "email": "Enter email address"
     }
 }

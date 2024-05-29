@@ -1,5 +1,6 @@
 import './bootstrap';
 import '../css/app.css';
+import '../sass/app.scss';
 
 import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';
@@ -12,8 +13,8 @@ import en from "./locales/en.json";
 import {createMemoryHistory, createRouter} from "vue-router";
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 const i18n = createI18n({
-    locale: "de",
-    fallbackLocale: "en",
+    locale: "en",
+    fallbackLocale: "de",
     messages: { de, en },
 });
 

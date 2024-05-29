@@ -1,7 +1,28 @@
+<script setup>
+defineProps({
+    type: {
+        type: String,
+        default: 'button',
+    },
+    textSize: {
+        type: String,
+        default: 'text-base',
+    },
+});
+</script>
+
 <template>
     <button
-        class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150"
-    >
-        <slot />
+        :type="type"
+        :class="[
+            'flex justify-center items-center h-12 border-none bg-red-900 p-4 text-white focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-center',
+            textSize
+        ]">
+        <slot/>
     </button>
 </template>
+<style lang="scss" scoped>
+button {
+    background-color: var(--app-color-primary);
+}
+</style>

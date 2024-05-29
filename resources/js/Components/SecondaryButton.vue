@@ -4,14 +4,19 @@ defineProps({
         type: String,
         default: 'button',
     },
+    textSize: {
+        type: String,
+        default: 'text-sm',
+    },
 });
 </script>
 
 <template>
     <button
         :type="type"
-        class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150"
+        :class="['inline-flex justify-center items-center h-12 px-4 py-2 bg-gray-200 rounded-md font-semibold',
+        textSize, 'tracking-widest shadow-sm disabled:opacity-25 overflow-hidden leading-trim text-edge text-ellipsis']"
     >
-        <slot />
+        <slot/>
     </button>
 </template>

@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Tenant\AuthController;
 use App\Http\Controllers\Tenant\DashboardController;
 use App\Http\Middleware\EnsureTenantIsAuthenticated;
@@ -37,6 +38,11 @@ Route::middleware([
     Route::post('/logout', [AuthController::class, 'destroy'])
         ->middleware('auth')
         ->name('tenant.logout');
+    Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
+        ->name('tenant.password.request');
+
+    Route::post('forgot-password', [PasswordResetLinkController::class, 'store'])
+        ->name('tenant.password.email');
 });
 
 Route::middleware([

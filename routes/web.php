@@ -7,16 +7,11 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
+Route::get('/dashboard', function () {
+    return redirect(route("dashboard"));
 })->middleware(PreventAccessFromTenantDomains::class);
 
-Route::get('/dashboard', function () {
+Route::get('/', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -27,4 +22,4 @@ Route::middleware('auth')->group(function () {
 });
 Route::resource('tenants', TenantController::class)
     ->middleware(['auth', 'verified'])->names('tenants');
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
