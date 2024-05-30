@@ -48,21 +48,19 @@ services:
             - app-network
 
     db:
-        platform: linux/x86_64 #this line is optional if you are using Mac Silicon chip (M1/M2/M3)
-        image: mysql:8.0
-        container_name: my-mysql
+        image: postgres:13
+        container_name: my-postgres
         restart: unless-stopped
         environment:
-            MYSQL_DATABASE: ${DB_DATABASE}
-            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-            MYSQL_PASSWORD: ${DB_PASSWORD}
-            MYSQL_USER: ${DB_USERNAME}
+            POSTGRES_DB: ${DB_DATABASE}
+            POSTGRES_USER: ${DB_USERNAME}
+            POSTGRES_PASSWORD: ${DB_PASSWORD}
         volumes:
-            - dbdata:/var/lib/mysql
+            - dbdata:/var/lib/postgresql/data
         networks:
             - app-network
         ports:
-            - "3306:3306"
+            - "5432:5432"
 
 networks:
     app-network:
